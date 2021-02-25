@@ -3,7 +3,7 @@ const routes = require('./routes');
 const morgan = require('morgan');
 
 const app = express();
-
+console.log(process.env.DB_DATABASE)
 app.set('view engine', 'pug');
 
 app.use(morgan('dev'));
