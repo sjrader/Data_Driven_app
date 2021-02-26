@@ -17,17 +17,17 @@ router.get('/', asyncHandler (async (req, res, next) => {
 
 router.get('/book/add', csrfProtection, (req, res) => {
     const book = db.Book.build();
-    res.render('book-add', { title: 'Add Book', book, csrfToken: req.csrfToken })
+    res.render('book-add', { title: 'Add Book', book, csrfToken: req.csrfToken() })
 })
 
-router.post('/book/add', csrfProtection, asyncHandler(async (req, res) => {
+router.post('/book/add', csrfProtection, asyncHandler(async (req, res, next) => {
     const { title, author, releaseDate, pageCount, publisher } = req.body;
     const book = db.Book.build({ title, author, releaseDate, pageCount, publisher });
     try{
         await book.save();
         res.redirect('/');
     } catch (err) {
-        res.render('book-add', { title: 'Add Book', book, error: err, csrfToken: req.csrfToken() });
+        
     }
 }))
 
